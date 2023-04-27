@@ -30,18 +30,26 @@ function love.draw()
     bulle.draw()
 end
 
+function changeCouleur()
+    if bulle.etat == 1 then
+        bulle.etat = 2
+    elseif bulle.etat == 2 then
+        bulle.etat = 1
+    end
+end
+
+function bouclier()
+    if bulle.etat == 1 or bulle.etat == 2 then
+        bulle.etat = 3
+    elseif bulle.etat == 3 then
+        bulle.etat = 1
+    end
+end
+
 function love.keypressed(key)
     if key == "e" then
-        if bulle.etat == 1 then
-            bulle.etat = 2
-        elseif bulle.etat == 2 then
-            bulle.etat = 1
-        end
+        changeCouleur()
     elseif key == "a" then
-        if bulle.etat == 1 or bulle.etat == 2 then
-            bulle.etat = 3
-        elseif bulle.etat == 3 then
-            bulle.etat = 1
-        end
+        bouclier()
     end
 end

@@ -12,6 +12,8 @@ bulle.rayon = 0
 bulle.speed = 0
 bulle.etat = 1
 
+timer = 0
+
 function bulle.load()
     width = love.graphics.getWidth()
     height = love.graphics.getHeight()
@@ -20,9 +22,22 @@ function bulle.load()
     bulle.y = height / 2
     bulle.speed_x = 150
     bulle.speed_y = 150
+
+    timer = 5
 end
 
 function bulle.update(dt)
+    if bulle.etat == 3 then
+        timer = timer - dt
+
+        if timer <= 0 then
+            bulle.etat = 1
+        end
+        if bulle.etat == 1 or bulle.etat == 2 then
+            timer = 5
+        end
+    end
+
     bulle.x = bulle.x + bulle.speed_x * dt
     bulle.y = bulle.y + bulle.speed_y * dt
 
@@ -54,6 +69,10 @@ function bulle.draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     love.graphics.circle("line", bulle.x, bulle.y, bulle.rayon)
+
+    if bulle.etat == 3 then
+        love.graphics.print(math.ceil(timer), 1, 1)
+    end
 end
 
 return bulle
